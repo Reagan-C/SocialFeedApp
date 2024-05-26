@@ -31,7 +31,7 @@ A mini social media feed project built with ASP.NET Core and Entity Framework Co
 ### Installation
 
 1. Clone the repository: 
-- git clone https://github.com/Reagan-C/MiniFeed
+- git clone https://github.com/Reagan-C/SocialFeedApp
 
 2. Navigate to the project directory: 
 - cd MiniFeed
