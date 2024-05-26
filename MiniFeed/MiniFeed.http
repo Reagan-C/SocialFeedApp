@@ -1,0 +1,6 @@
+@MiniFeed_HostAddress = http://localhost:5148
+
+GET {{MiniFeed_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
