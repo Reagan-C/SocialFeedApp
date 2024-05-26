@@ -33,18 +33,18 @@ namespace MiniFeed.Controllers
         }
 
         [HttpPost("{username}/follow")]
-        public async Task<IActionResult> FollowUser(string userName)
+        public async Task<IActionResult> FollowUser(string username)
         {
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var currentUser =  await _userRepo.GetUserById(currentUserId);
 
-            var userToFollow = await _userRepo.GetUserAsync(userName);
+            var userToFollow = await _userRepo.GetUserAsync(username);
             if (userToFollow == null)
             {
                 return NotFound("User not found");
             }
 
-            if (currentUser.UserName == userName)
+            if (currentUser.UserName == username)
             {
                 return BadRequest("You cannot follow yourself.");
             }
@@ -70,7 +70,7 @@ namespace MiniFeed.Controllers
         public async Task<IActionResult> UnfollowUser(string username)
         {
             var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var currentUser = _userRepo.GetUserById(currentUserId).GetAwaiter().GetResult();
+            var currentUser = await _userRepo.GetUserById(currentUserId);
 
             var userToUnfollow = await _userRepo.GetUserAsync(username);
             if (userToUnfollow == null)

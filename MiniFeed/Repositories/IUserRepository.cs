@@ -8,7 +8,6 @@ namespace MiniFeed.Repositories
         Task<User> GetUserAsync(string userName);
         Task<User> GetUserById(string Id);
         ICollection<User> GetAllUsers();
-        Task<string> AddUser(User user);
         Task SaveChanges();
     }
 }

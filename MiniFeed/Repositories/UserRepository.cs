@@ -41,11 +41,5 @@ namespace MiniFeed.Repositories
            await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<string> AddUser(User user)
-        {
-            _dbContext.Users.Add(user);
-            SaveChanges();
-            return "";
-        }
     }
 }
