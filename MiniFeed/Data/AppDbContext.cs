@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MiniFeed.Models;
-using System.Reflection.Emit;
 
 namespace MiniFeed.Data
 {
@@ -22,6 +21,7 @@ namespace MiniFeed.Data
         {
             base.OnModelCreating(builder);
 
+            //seed roles into db
             List<IdentityRole> roles = new List<IdentityRole>()
             {
                 new IdentityRole
@@ -38,6 +38,7 @@ namespace MiniFeed.Data
 
             builder.Entity<IdentityRole>().HasData(roles);
 
+            // establish relationship between User and Follow tables
             builder.Entity<Follow>()
             .HasKey(f => new { f.FollowerId, f.FollowedId });
 
@@ -53,6 +54,7 @@ namespace MiniFeed.Data
                 .HasForeignKey(f => f.FollowedId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // establish relationship between User and Like tables
             builder.Entity<Like>()
             .HasKey(l => new { l.UserId, l.PostId });
 

@@ -34,10 +34,10 @@ namespace MiniFeed.Tests.Controllers
         }
 
         [Fact]
-        public async Task CreatePost_ReturnsBadRequest_WhenModelStateIsInvalid()
+        public async Task CreatePost_ReturnsBadRequest_WhenTextDoesntMeetTargetLength()
         {
             // Arrange
-            _postsController.ModelState.AddModelError("Error", "Invalid model state");
+            _postsController.ModelState.AddModelError("Error", "Text length requirement not met");
 
             // Act
             var result = await _postsController.CreatePost(new CreatePostRequest());
@@ -50,9 +50,10 @@ namespace MiniFeed.Tests.Controllers
         public async Task CreatePost_ReturnsCreated_WhenPostIsCreated()
         {
             // Arrange
+            var userId = "test-user-id";
             var createPostRequest = new CreatePostRequest();
-            var post = new GetPostResponse { Id = 1 };
-            _mockPostService.Setup(s => s.CreatePost ("test-user-id", createPostRequest)).Returns(Task.FromResult(post));
+            var post = new GetPostResponse { Id = 1, UserId = userId, Text = "new post"};
+            _mockPostService.Setup(s => s.CreatePost (userId, createPostRequest)).Returns(Task.FromResult(post));
 
             // Act
             var result = await _postsController.CreatePost(createPostRequest);
